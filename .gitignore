@@ -1,0 +1,15 @@
+# Credentials
+.env
+
+# Data
+data/
+*.json
+*.csv
+
+# Python environment
+__pycache__/
+venv/
+.pytest_cache/
+
+# OS files
+.DS_Store

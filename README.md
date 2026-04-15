@@ -1,5 +1,4 @@
 # Strava Running Performance Dashboard
-### Location: Phoenix, Arizona
 
 This project turns personal Strava activity data into a Snowflake-backed performance analytics workflow and an interactive dashboard for tracking running progress.
 
@@ -15,12 +14,6 @@ A review of the current query outputs highlights clear progression and useful pe
 
 Monthly training volume shows a concentrated endurance block in winter, with the highest recorded month reaching **167.86 km in December 2025**, followed by **139.08 km in January 2026**. The dashboard makes these trends immediately visible through ranked performance views and interactive time-series exploration, providing a repeatable framework for monitoring pace, distance, and workload over time.
 
----
-
-## Stakeholders
-* **Primary Stakeholder:** Athlete / Project Owner (Focus: performance tracking, training progression, and personal analytics)
-
----
 
 ## Data Architecture and Pipeline
 The technical foundation uses a simple cloud analytics pipeline built around raw ingestion and SQL-driven transformation. Activity data is requested from the Strava API, written locally as JSON, uploaded into a Snowflake internal stage, and loaded into a raw table for downstream querying.
@@ -43,23 +36,6 @@ The implementation uses a compact modern data stack to move from raw activity da
 * **Query Layer:** Three SQL analyses generate the dashboard inputs: fastest 5K rankings, longest-run rankings, and monthly running volume.
 * **Visualization:** A lightweight front-end dashboard in `index.html` renders the query results as an interactive leaderboard, bar chart, and time series.
 
----
-
-## Code References
-The project is intentionally small, with each file owning a specific part of the workflow:
-
-* `scripts/get_tokens.py`: Exchanges the Strava authorization code for access and refresh tokens.
-* `scripts/extract.py`: Calls the Strava athlete activities endpoint and saves the raw JSON response locally.
-* `scripts/load.py`: Uploads the JSON file into Snowflake and copies it into the raw ingestion table.
-* `queries/setup_database.sql`: Creates the database objects required for staging and raw storage.
-* `queries/ranking_fastest_5ks.sql`: Returns the top five 5K-equivalent runs ranked by pace.
-* `queries/ranking_top_runs.sql`: Returns the five longest recorded runs ranked by distance.
-* `queries/running_volume_monthly.sql`: Aggregates monthly total distance and average pace.
-* `index.html`: Main dashboard entry point.
-* `public/dashboard.js`: Loads CSV outputs and renders the interactive charts.
-* `public/dashboard.css`: Styles the dashboard layout, cards, charts, and responsive behavior.
-
----
 
 ## Key Insights and Recommendations
 
@@ -80,17 +56,6 @@ The project is intentionally small, with each file owning a specific part of the
 * **Recommendation:** Extend the current model with new metrics such as cadence trends, elevation gain, weekly consistency, or race-specific pace zones to deepen the training analysis without changing the core pipeline design.
 
 ![Dashboard](public/elements/dashboard.png)
-
----
-
-## Dashboard Outputs
-The interactive dashboard is designed around three core analysis views:
-
-* **Fastest 5Ks Leaderboard:** Surfaces best short-distance performances with pace, date, and rank.
-* **Longest Runs Bar Chart:** Compares top endurance efforts in a visual ranking format.
-* **Monthly Volume Time Series:** Tracks total distance by month, with an additional toggle for average pace context.
-
-The dashboard code lives in `public/dashboard.js` and `public/dashboard.css`, and reads directly from the CSV outputs stored in `query_results`.
 
 ---
 

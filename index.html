@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava Performance Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/dashboard.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Strava x Snowflake</p>
+        <h1>Running performance, shaped by your query results.</h1>
+        <p class="hero-text">
+          Your fastest 5Ks, longest runs, and monthly running volume in one interactive dashboard.
+        </p>
+      </div>
+      <div class="hero-badge">
+        <img src="public/elements/strava_logo.svg" alt="Strava logo">
+        <div>
+          <span class="badge-label">Current snapshot</span>
+          <strong id="data-range">Loading...</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-grid">
+      <section class="panel panel-leaderboard">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Fastest 5Ks</p>
+            <h2>Leaderboard</h2>
+          </div>
+          <div class="panel-stat">
+            <span>Best pace</span>
+            <strong id="best-pace">--</strong>
+          </div>
+        </div>
+        <div id="leaderboard" class="leaderboard"></div>
+      </section>
+
+      <section class="panel panel-chart">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Longest Runs</p>
+            <h2>Distance rankings</h2>
+          </div>
+          <div class="panel-stat">
+            <span>Longest effort</span>
+            <strong id="longest-run">--</strong>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <svg id="distance-chart" viewBox="0 0 720 360" role="img" aria-label="Longest runs bar chart"></svg>
+        </div>
+      </section>
+
+      <section class="panel panel-chart panel-wide">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Monthly Volume</p>
+            <h2>Running volume over time</h2>
+          </div>
+          <div class="panel-stat">
+            <span>Peak month</span>
+            <strong id="peak-month">--</strong>
+          </div>
+        </div>
+        <div class="chart-controls">
+          <button class="toggle is-active" type="button" data-series="distance">Distance</button>
+          <button class="toggle" type="button" data-series="pace">Average pace</button>
+        </div>
+        <div class="chart-wrap">
+          <svg id="volume-chart" viewBox="0 0 920 360" role="img" aria-label="Monthly running volume chart"></svg>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <script src="public/dashboard.js" defer></script>
+</body>
+</html>
